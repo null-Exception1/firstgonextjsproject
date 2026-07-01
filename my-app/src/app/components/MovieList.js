@@ -6,6 +6,11 @@ export default function MovieList() {
   const [name, setName] = useState("")
   const [duration, setDuration] = useState("")
   const [rating, setRating] = useState("")
+  const fields = [
+    { id: "movie", placeholder: "movie name", setter: setName },
+    { id: "duration", placeholder: "duration", setter: setDuration },
+    { id: "rating", placeholder: "movie rating", setter: setRating },
+  ];
   function refreshMovies() {
     fetch("http://127.0.0.1:8080/get").then(resp => resp.json()).then(data => setMovies(data))
   }
@@ -14,24 +19,34 @@ export default function MovieList() {
   }
   useEffect(() => { refreshMovies() }, [])
 
-
   return (
-    <div>
-      <h1>Movie Name : </h1>
+
+    <div className="flex justify-center items-center-safe flex-col">
+
       {
         movies.map((movie, index) => (
-          <h2 key={index}> {movie.name} {movie.duration} {movie.rating} </h2>
+          <h2 className="flex font-mono flex-col border-2 border-blue-600 rounded p-1" key={index}> {movie.name} {movie.duration} {movie.rating} </h2>
         ))
       }
+      <div className="flex outline-0 flex-row">
+        {
+          fields.map((item, index) => (
+            <input key={index}
+              id={item.id}
+              placeholder={item.placeholder}
+              className="border-blue-600 font-mono border-2 rounded p-3 m-1 outline-none"
+              onChange={e => { item.setter(e.target.value) }}></input>
+          ))
+        }
+      </div>
 
-      <input placeholder="movie name" id="movie" onChange={e => { setName(e.target.value) }}></input><br />
-      <input placeholder="duration" id="duration" onChange={e => { setDuration(e.target.value) }}></input><br />
-      <input placeholder="movie rating" id="rating" onChange={e => { setRating(e.target.value) }}></input><br />
-      <button onClick={() => {
-        addMovie();
-        refreshMovies();
-      }
-      }> Add new movie </button>
+      <button className="border-5 border-rose-500 text-3xl rounded p-5 font-mono"
+
+        onClick={() => {
+          addMovie();
+          refreshMovies();
+        }
+        }> Add new movie </button>
     </div >
   );
 }
