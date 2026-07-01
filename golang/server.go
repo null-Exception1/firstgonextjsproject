@@ -30,10 +30,12 @@ func GetHandler(w http.ResponseWriter, res *http.Request) {
 }
 func SetHandler(w http.ResponseWriter, res *http.Request) {
 	queryParams := res.URL.Query()
+
 	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
+
 	name := queryParams.Get("name")
 	duration, _ := strconv.Atoi(queryParams.Get("duration"))
 	rating, _ := strconv.Atoi(queryParams.Get("rating"))
