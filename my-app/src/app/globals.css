@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
+/* 1. Import and configure daisyUI all at once */
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+/* Ensure this correctly jumps out of /app/ into /components/ */
+@source "../../components/**/*.{js,ts,jsx,tsx}";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -12,15 +19,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: white;
+  color: black;
+  font-family: monospace, sans-serif;
 }
